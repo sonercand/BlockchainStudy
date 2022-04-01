@@ -4,7 +4,7 @@ FORKED_LOCAL_ENVIRONMENTS = ["mainnet-fork-dev", "mainnet-fork"]
 LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache_local"]
 
 
-def get_account(index=0, id=None):
+def get_account(index=None, id=None):
     """get account for testing"""
     if index:
         return accounts[index]
