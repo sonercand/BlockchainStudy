@@ -1,9 +1,11 @@
 dependencies:
-  - aave/protocol-v2@1.0.1
+    - smartcontractkit/chainlink-brownie-contracts@0.4.0
+    - aave/protocol-v2@1.0.1
 compiler:
-  solc:
-    remappings:
-      -'@aave=aave/protocol-v2@1.0.1'
+    solc:
+        remappings:
+            - "@chainlink=smartcontractkit/chainlink-brownie-contracts@0.4.0"
+            - "@aave=aave/protocol-v2@1.0.1"
 networks:
  kovan:
   weth_token: '0xd0A1E359811322d97991E03f863a0C30C2cF029C'
