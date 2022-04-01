@@ -5,6 +5,7 @@ LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache_local"]
 
 
 def get_account(index=0, id=None):
+    """get account for testing"""
     if index:
         return accounts[index]
     if id:
