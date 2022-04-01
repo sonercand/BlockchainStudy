@@ -1,6 +1,6 @@
 from scripts.helpers import get_account
 from scripts.get_weth import get_weth
-from brownie import network, config
+from brownie import network, config, interface
 
 
 def main():
@@ -18,4 +18,8 @@ def main():
 def get_lending_pool():
     # lending pool address can change time to time
     # documentation : https://docs.aave.com/developers/v/1.0/developing-on-aave/the-protocol/lendingpool
+    lending_pool_addresses_provider = interface.ILendingPoolAddressesProvider(
+        config["networks"][network.show_active()]["lending_pool_addresses_provider"]
+    )
+    lending_pool
     return None
