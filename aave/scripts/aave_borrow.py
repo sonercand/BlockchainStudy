@@ -25,6 +25,16 @@ def main():
     )
     tx.wait(1)
     print("depositing collateral")
+    borrowable_eth, total_debth = get_borrowable_data(lending_pool, account)
+    print("Borrowing")
+    dai_eth_price_feed = config["networks"][network.show_active()]["dai_eth_price_feed"]
+    dai_eth_price = get_asset_price(dai_eth_price_feed)
+
+
+def get_asset_price(price_feed_address):
+    # abi address
+    dai_eth_price_feed = interface.AggregatorV3Interface(price_feed_address)
+    return None
 
 
 def get_lending_pool():
@@ -47,3 +57,21 @@ def approve_erc20(amount, spender, erc20_address, account):
     txn.wait(1)
     print("approved")
     return txn
+
+
+def get_borrowable_data(lending_pool, account):
+    (
+        total_collateral_eth,
+        total_debth_eth,
+        available_borrow_eth,
+        current_liquidation_threshold,
+        ltv,
+        health_factor,
+    ) = lending_pool.getUserAccountData(account.address)
+    available_borrow_eth = Web3.fromWei(available_borrow_eth, "ether")
+    total_collateral_eth = Web3.fromWei(total_collateral_eth, "ether")
+    total_debth_eth = Web3.fromWei(total_debth_eth, "ether")
+    print(
+        f"you have {total_collateral_eth} worth of ETH deposited \n You have borrowed already {total_debth_eth} eth \n you can borrow additionally {available_borrow_eth} eth."
+    )
+    return (float(available_borrow_eth), float(total_debth_eth))
