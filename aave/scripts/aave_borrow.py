@@ -20,6 +20,11 @@ def main():
     # print(lending_pool)
     # approve sending out erc20 tokens
     approve_erc20(AMOUNT, lending_pool.address, erc20_address, account)
+    tx = lending_pool.deposit(
+        erc20_address, AMOUNT, account.address, 0, {"from": account}
+    )
+    tx.wait(1)
+    print("depositing collateral")
 
 
 def get_lending_pool():
