@@ -26,15 +26,36 @@ def main():
     tx.wait(1)
     print("depositing collateral")
     borrowable_eth, total_debth = get_borrowable_data(lending_pool, account)
-    print("Borrowing")
-    dai_eth_price_feed = config["networks"][network.show_active()]["dai_eth_price_feed"]
+    print("Borrowing assesment")
+    dai_eth_price_feed = config["networks"][network.show_active()]["dai_eth_price"]
     dai_eth_price = get_asset_price(dai_eth_price_feed)
+    print(f"dai_eth_price is {dai_eth_price}")
+    amount_dai_to_borrow = (1 / dai_eth_price) * (
+        float(Web3.toWei(borrowable_eth, "ether")) * 0.95
+    )  # borow dai 95% of max
+    print(f"amount to be borrowed: {amount_dai_to_borrow}")
+    # get dai address
+    dai_address = config["networks"][network.show_active()]["dai_token"]
+    borrow_txn = lending_pool.borrow(
+        dai_address,
+        Web3.toWei(amount_dai_to_borrow, "ether"),
+        1,
+        0,
+        account.address,
+        {"from": account},
+    )  # 1 is stable 2 is variable interest rate
+    print("borrowing")
+    borrow_txn.wait(1)
+    get_borrowable_data(lending_pool, account)
 
 
 def get_asset_price(price_feed_address):
     # abi address
     dai_eth_price_feed = interface.AggregatorV3Interface(price_feed_address)
-    return None
+    latest_price = dai_eth_price_feed.latestRoundData()[1]
+    latest_price_in_eth = Web3.fromWei(latest_price, "ether")
+    print(f"latest price dai/eth: {latest_price_in_eth}")
+    return float(latest_price)
 
 
 def get_lending_pool():

@@ -11,10 +11,17 @@ networks:
   weth_token: '0xd0A1E359811322d97991E03f863a0C30C2cF029C'
   lending_pool_addresses_provider : '0x88757f2f99175387ab4c6a4b3067c77a695b0349'
   dai_eth_price: '0x22B58f1EbEDfCA50feF632bD73368b2FdA96D541'
+  dai_token: '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa'
  mainnet-fork-dev:
-  weth_token: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
-  lending_pool_addresses_provider: '0xb53c1a33016b2dc2ff3653530bff1848a515c8c5'
-  dai_eth_price: '0x773616e4d11a78f511299002da57a0a94577f1f4'
+  lending_pool_addresses_provider : '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5'
+  weth_token: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+        # For mainnet, the link token is the same
+  link_token: "0x514910771af9ca656af840dff83e8264ecf986ca"
+  aave_link_token: "0x514910771af9ca656af840dff83e8264ecf986ca"
+  aave_dai_token: "0x6b175474e89094c44da98b954eedeac495271d0f"
+  dai_token: "0x6b175474e89094c44da98b954eedeac495271d0f"
+  link_eth_price_feed: "0xDC530D9457755926550b59e8ECcdaE7624181557"
+  dai_eth_price: "0x773616E4d11A78F511299002da57A0a94577F1f4"
 wallets:
  from_key: ${PRIVATE_KEY}
 dotenv: .env 
