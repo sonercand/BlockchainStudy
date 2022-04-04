@@ -33,6 +33,7 @@ def main():
     amount_dai_to_borrow = (1 / dai_eth_price) * (
         float(Web3.toWei(borrowable_eth, "ether")) * 0.95
     )  # borow dai 95% of max
+    amount_dai_to_borrow = 100
     print(f"amount to be borrowed: {amount_dai_to_borrow}")
     # get dai address
     dai_address = config["networks"][network.show_active()]["dai_token"]
@@ -46,7 +47,11 @@ def main():
     )  # 1 is stable 2 is variable interest rate
     print("borrowing")
     borrow_txn.wait(1)
-    get_borrowable_data(lending_pool, account)
+    _, total_debth_eth = get_borrowable_data(lending_pool, account)
+    print(f"total debth to be paid: {total_debth_eth}")
+    # repay_all(AMOUNT, lending_pool, account)
+    # print("repaid")
+    # t1 = get_borrowable_data(lending_pool, account)
 
 
 def get_asset_price(price_feed_address):
@@ -96,3 +101,21 @@ def get_borrowable_data(lending_pool, account):
         f"you have {total_collateral_eth} worth of ETH deposited \n You have borrowed already {total_debth_eth} eth \n you can borrow additionally {available_borrow_eth} eth."
     )
     return (float(available_borrow_eth), float(total_debth_eth))
+
+
+def repay_all(amount, lending_pool, account):
+    approve_erc20(
+        Web3.toWei(amount, "ether"),
+        lending_pool,
+        config["networks"][network.show_active()]["dai_token"],
+        account,
+    )
+    repay_tx = lending_pool.repay(
+        config["networks"][network.show_active()]["dai_token"],
+        amount,
+        1,
+        account.address,
+        {"from": account},
+    )
+    repay_tx.wait(1)
+    print("dept repaid!")
