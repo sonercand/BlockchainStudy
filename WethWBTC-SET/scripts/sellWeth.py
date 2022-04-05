@@ -3,10 +3,10 @@ from brownie import config, network, interface
 
 
 def main():
-    get_weth()
+    sell_weth()
 
 
-def get_weth(val=0.9 * 10**18):
+def sell_weth(val=1 * 10**18):
     """
     Get weth using ETH
     """
@@ -16,7 +16,7 @@ def get_weth(val=0.9 * 10**18):
     weth = interface.WethInterface(
         config["networks"][network.show_active()]["weth_token"]
     )
-    tx = weth.deposit({"from": account, "value": val})
+    tx = weth.withdraw(val, {"from": account})
     print(f"Received 0.1 WETH")
     tx.wait(1)
     return tx
