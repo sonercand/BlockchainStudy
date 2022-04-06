@@ -1,0 +1,34 @@
+dependencies:
+    - smartcontractkit/chainlink-brownie-contracts@0.4.0
+    - aave/protocol-v2@1.0.1
+compiler:
+    solc:
+        remappings:
+            - "@chainlink=smartcontractkit/chainlink-brownie-contracts@0.4.0"
+            - "@aave=aave/protocol-v2@1.0.1"
+networks:
+ kovan:
+  weth_token: '0xd0A1E359811322d97991E03f863a0C30C2cF029C'
+  lending_pool_addresses_provider : '0x88757f2f99175387ab4c6a4b3067c77a695b0349'
+  dai_eth_price: '0x22B58f1EbEDfCA50feF632bD73368b2FdA96D541'
+  dai_token: '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa'
+  contracts:
+    SetTokenCreator: '0xB24F7367ee8efcB5EAbe4491B42fA222EC68d411'
+    Controller: '0x9048278cA7e874F9338e4898C436Ab07AA454701'
+    IntegrationRegistry: '0x28A87DCca3322F90B3A4CE80cee499869EFdBf11'
+    PriceOracle: '0xDFEA02F2824Ee177733d6f108005E95C85D1D4bE'
+    SetValuer: '0xA37f4c5A7Ad72EEa9034195B75e7498C7ed1d4E3'
+    ProtocolViewer: '0xbbC86C6099B148383941e8E592847fDC61a03283'
+ mainnet-fork-dev:
+  lending_pool_addresses_provider : '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5'
+  weth_token: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+        # For mainnet, the link token is the same
+  link_token: "0x514910771af9ca656af840dff83e8264ecf986ca"
+  aave_link_token: "0x514910771af9ca656af840dff83e8264ecf986ca"
+  aave_dai_token: "0x6b175474e89094c44da98b954eedeac495271d0f"
+  dai_token: "0x6b175474e89094c44da98b954eedeac495271d0f"
+  link_eth_price_feed: "0xDC530D9457755926550b59e8ECcdaE7624181557"
+  dai_eth_price: "0x773616E4d11A78F511299002da57A0a94577F1f4"
+wallets:
+ from_key: ${PRIVATE_KEY}
+dotenv: .env 
