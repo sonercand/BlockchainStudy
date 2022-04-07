@@ -6,7 +6,7 @@ def main():
     get_weth()
 
 
-def get_weth(val=0.9 * 10**18):
+def get_weth(val=0.5 * 10**18):
     """
     Get weth using ETH
     """
